@@ -29,10 +29,10 @@ export function DisciplinesSection() {
       link: "/disciplines/precision",
     },
     {
-      id: "gallery",
+      id: "plomb",
       title: "Tir à 10m",
       description: "Le tir à 10m (carabine et pistolet à air comprimé) est idéal pour débuter et se perfectionner.",
-      image: "/images/gallery.jpg",
+      image: "/images/plomb.jpg",
       link: "/disciplines/10m",
     },
   ]
