@@ -16,7 +16,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Menu, X } from "lucide-react"
-import { useMobile } from "@/hooks/use-mobile"
 import { Logo } from "@/components/logo"
 
 export default function Header() {
@@ -24,7 +23,7 @@ export default function Header() {
   const [user, setUser] = useState<any>(null)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
-  const isMobile = useMobile()
+  const [isMobile, setIsMobile] = useState(false)
   const [profile, setProfile] = useState<any>(null)
 
   useEffect(() => {
@@ -59,6 +58,22 @@ export default function Header() {
       authListener.subscription.unsubscribe()
     }
   }, [supabase])
+
+  useEffect(() => {
+    // Fonction pour vérifier si l'écran est mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    // Vérification initiale
+    checkMobile()
+    
+    // Ajouter un listener pour le redimensionnement
+    window.addEventListener('resize', checkMobile)
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
